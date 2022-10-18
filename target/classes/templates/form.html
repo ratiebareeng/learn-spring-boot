@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validation Spring</title>
+</head>
+<body>
+<!--form is geared to post to / =>"@{/}"
+    uses PersonForm object => ${personForm} aka bean-backed form
+    fields in the object tagged in the form => th:field="*{name}"
+    if the user enters a name or age that violates the @Valid constraints,
+    it bounces back to this page with the error message displayed else routed to the next web page
+-->
+<form action="#" th:action="@{/}" th:object="${personForm}" method="post">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" th:field="*{name}"></td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+
+            <td>Age:</td>
+            <td><input type="text" th:field="*{age}"></td>
+            <td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</td>
+        </tr>
+        <tr>
+            <td><button type="submit">Submit</button></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
